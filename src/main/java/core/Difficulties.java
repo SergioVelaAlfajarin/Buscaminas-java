@@ -1,5 +1,7 @@
 package core;
 
+import java.util.Optional;
+
 public enum Difficulties {
 	EASY(8,10,10),
 	MEDIUM(14,18,40),
@@ -11,5 +13,15 @@ public enum Difficulties {
 		this.rows = rows;
 		this.cols = cols;
 		this.mines_count = mines_count;
+	}
+
+	public static Optional<Difficulties> getByName(String name){
+		Optional<Difficulties> op = Optional.empty();
+		for (Difficulties dif: Difficulties.values()) {
+			if(dif.name().equalsIgnoreCase(name)){
+				op = Optional.of(dif);
+			}
+		}
+		return op;
 	}
 }
