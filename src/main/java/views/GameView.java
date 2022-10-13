@@ -9,13 +9,34 @@ import java.awt.event.WindowEvent;
 
 public class GameView extends JFrame {
 	private final Grid g;
-	private final JPanel panel;
+	private final JPanel titlePanel, statusPanel, gamePanel, mainPanel;
 	private final MainView mv;
 
 	public GameView(Grid g, MainView mv){
 		this.g = g;
-		this.panel = new JPanel(new GridLayout(g.rows,g.columns));
 		this.mv = mv;
+
+		this.mainPanel = new JPanel(new GridLayout(3,1,0,0));
+		this.titlePanel = new JPanel(new GridLayout(1,1,0,0));
+		this.statusPanel = new JPanel(new GridLayout(1,1,0,0));
+		this.gamePanel = new JPanel(new GridLayout(g.getRows(),g.getColumns(),0,0));
+
+		titlePanel.setBackground(Color.BLUE);
+		titlePanel.setSize(50, 30);
+		titlePanel.add(new JLabel("Title panel"));
+		mainPanel.add(titlePanel);
+
+		statusPanel.setBackground(Color.RED);
+		statusPanel.setSize(50, 30);
+		statusPanel.add(new JLabel("Score panel"));
+		mainPanel.add(statusPanel);
+
+		gamePanel.setBackground(Color.YELLOW);
+		gamePanel.setSize(50, 30);
+		gamePanel.add(new JLabel("Game Panel"));
+		mainPanel.add(gamePanel);
+
+		add(mainPanel);
 
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
@@ -26,10 +47,10 @@ public class GameView extends JFrame {
 			}
 		});
 		setResizable(false);
-		add(panel);
-		buildGrid();
 
-		pack();
+		buildGrid();
+		//pack();
+
 		setLocationRelativeTo(null);
 	}
 

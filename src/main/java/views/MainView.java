@@ -4,6 +4,7 @@ import core.Difficulties;
 import core.Grid;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.Arrays;
@@ -15,7 +16,7 @@ public class MainView extends JFrame {
 	public MainView(){
 		this.panel = new JPanel();
 
-		setSize(200,400);
+		setSize(250,400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setContent();
@@ -24,11 +25,11 @@ public class MainView extends JFrame {
 	}
 
 	private void setContent() {
-		var layout = new GridLayout(3,1);
-		layout.setHgap(50);
-		layout.setVgap(10);
+		var layout = new GridLayout(Difficulties.getValuesCount(),1);
+		layout.setVgap(30);
 		layout.layoutContainer(panel);
 		panel.setLayout(layout);
+		panel.setBorder(new EmptyBorder(20,20,20,20));
 		add(panel);
 	}
 
