@@ -2,6 +2,7 @@ package views;
 
 import core.Difficulties;
 import core.Grid;
+import main.Main;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -10,18 +11,26 @@ import java.awt.event.ActionEvent;
 import java.util.Arrays;
 import java.util.Locale;
 
-public class MainView extends JFrame {
-	private final JPanel panel;
+public class MainView {
+	private final JFrame frame = new JFrame("Buscaminas");
+	private final JPanel panel = new JPanel();
 
 	public MainView(){
-		this.panel = new JPanel();
-
-		setSize(250,400);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setResizable(false);
+		frame.setSize(250,400);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(false);
 		setContent();
 		buildButtons();
-		setLocationRelativeTo(null);
+		frame.add(panel);
+		frame.setLocationRelativeTo(null);
+	}
+
+	public void show(){
+		frame.setVisible(true);
+	}
+
+	public void hide(){
+		frame.setVisible(false);
 	}
 
 	private void setContent() {
@@ -30,7 +39,6 @@ public class MainView extends JFrame {
 		layout.layoutContainer(panel);
 		panel.setLayout(layout);
 		panel.setBorder(new EmptyBorder(20,20,20,20));
-		add(panel);
 	}
 
 	private void buildButtons() {
@@ -46,13 +54,6 @@ public class MainView extends JFrame {
 	private void onClick(ActionEvent e) {
 		String actionCmd = e.getActionCommand();
 		Difficulties dif = Difficulties.getByName(actionCmd).orElse(Difficulties.EASY);
-		Grid g = new Grid(dif);
-		startGame(g);
-	}
-
-	private void startGame(Grid g) {
-		setVisible(false);
-		GameView gm = new GameView(g, this);
-		gm.setVisible(true);
+		Main.startGame(dif);
 	}
 }

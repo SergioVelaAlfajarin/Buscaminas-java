@@ -1,10 +1,13 @@
 package core;
 
+import java.awt.*;
+
 public class Cell {
+	public final Image img;
 	public boolean isMine;
 
-	public Cell(){
-		
+	public Cell(int type){
+		this.img = null;
 	}
 
 	public void setMine(boolean mine) {

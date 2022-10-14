@@ -38,10 +38,10 @@ public class Grid {
 	private Cell[] generateGameCells() {
 		var cells = new Cell[dif.getCellCount()]; //10, 14
 		for (int i = 0; i < cells.length; i+=2) { //pares
-			cells[i] = new Cell();
+			cells[i] = new Cell(1);
 		}
 		for (int i = 1; i < cells.length; i+=2) { //impares
-			cells[i]= new Cell();
+			cells[i]= new Cell(2);
 		}
 		return cells;
 	}
