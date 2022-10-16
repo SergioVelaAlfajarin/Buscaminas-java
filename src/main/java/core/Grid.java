@@ -1,7 +1,6 @@
 package core;
 
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
 
 public class Grid {
 	public final Difficulties dif;
@@ -11,7 +10,8 @@ public class Grid {
 		this.dif = difficulty;
 		this.cells = generateGameCells();
 
-		generateMines();
+		System.out.println();
+		//generateMines();
 	}
 
 	private void generateMines() {
@@ -20,14 +20,12 @@ public class Grid {
 
 		for (int i = 0; i < dif.mines_count; i++) {
 			int random = rn.nextInt(cells.length);
-
 			while(isRepeated(random, randomPos)){
 				random = rn.nextInt(cells.length);
 				System.out.println("generated repeated number.");
 			}
-
 			randomPos.add(random);
-			cells[random].setMine(true);
+			cells[random].setMine();
 		}
 	}
 
@@ -38,11 +36,12 @@ public class Grid {
 	private Cell[] generateGameCells() {
 		var cells = new Cell[dif.getCellCount()]; //10, 14
 		for (int i = 0; i < cells.length; i+=2) { //pares
-			cells[i] = new Cell(1);
+			cells[i] = new Cell(i,1);
 		}
 		for (int i = 1; i < cells.length; i+=2) { //impares
-			cells[i]= new Cell(2);
+			cells[i]= new Cell(i,2);
 		}
+		Arrays.sort(cells, (o1, o2) -> o1.id.compareTo(o2.id));
 		return cells;
 	}
 
