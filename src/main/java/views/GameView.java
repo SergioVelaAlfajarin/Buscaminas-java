@@ -18,14 +18,14 @@ public class GameView{
 
 	public GameView(Grid g){
 		this.g = g;
-		this.mainPanel = new JPanel(new GridLayout(3,1,0,0)); // ESTUDIAR LAYOUTS JAVA
+		this.mainPanel = new JPanel(); // ESTUDIAR LAYOUTS JAVA
 		this.titlePanel = new JPanel();
 		this.statusPanel = new JPanel();
 		this.gamePanel = new JPanel(new GridLayout(g.getRows(), g.getColumns(),0,0));
 		this.gameStatus = 2; //2=game quitted
 
-		setPanels();
 		buildGrid();
+		setPanels();
 
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.addWindowListener(new WindowAdapter() {
@@ -64,7 +64,8 @@ public class GameView{
 	private void buildGrid() {
 		Cell[] cells = g.getCells();
 		for(Cell c: cells){
-			gamePanel.add(c.lbl);
+			gamePanel.add(c);
+			//System.out.println(c);
 		}
 	}
 

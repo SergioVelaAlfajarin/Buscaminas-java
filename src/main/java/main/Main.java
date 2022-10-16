@@ -21,7 +21,7 @@ public class Main {
 			mainView = new MainView();
 			mainView.show();
 		});
-		/*
+/*
 		URL is = Main.class.getClassLoader().getResource("Tile1.png");
 		File f = new File(is.toURI());
 		System.out.println(f.getAbsolutePath());

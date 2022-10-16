@@ -10,8 +10,7 @@ public class Grid {
 		this.dif = difficulty;
 		this.cells = generateGameCells();
 
-		System.out.println();
-		//generateMines();
+		generateMines();
 	}
 
 	private void generateMines() {
@@ -22,7 +21,6 @@ public class Grid {
 			int random = rn.nextInt(cells.length);
 			while(isRepeated(random, randomPos)){
 				random = rn.nextInt(cells.length);
-				System.out.println("generated repeated number.");
 			}
 			randomPos.add(random);
 			cells[random].setMine();
@@ -34,15 +32,30 @@ public class Grid {
 	}
 
 	private Cell[] generateGameCells() {
-		var cells = new Cell[dif.getCellCount()]; //10, 14
-		for (int i = 0; i < cells.length; i+=2) { //pares
-			cells[i] = new Cell(i,1);
+		ArrayList<Cell> list = new ArrayList<>();
+		for (int i = 0; i < dif.rows; i++) {
+			Cell[] row = generateRow(i);
+			list.addAll(List.of(row));
 		}
-		for (int i = 1; i < cells.length; i+=2) { //impares
-			cells[i]= new Cell(i,2);
+		return list.toArray(new Cell[]{});
+	}
+
+	private Cell[] generateRow(int i) {
+		Cell[] array = new Cell[dif.cols];
+		if(i % 2 == 0){
+			for (int j = 0; j < dif.cols; j++) {
+				int type = j % 2 == 0 ? 1 : 2;
+				int id = (j + 1) + (i * 8);
+				array[j] = new Cell(id, type);
+			}
+		}else{
+			for (int j = 0; j < dif.cols; j++) {
+				int type = j % 2 == 0 ? 2 : 1;
+				int id = (j + 1) + (i * 8);
+				array[j] = new Cell(id, type);
+			}
 		}
-		Arrays.sort(cells, (o1, o2) -> o1.id.compareTo(o2.id));
-		return cells;
+		return array;
 	}
 
 	public Difficulties getDif() {
