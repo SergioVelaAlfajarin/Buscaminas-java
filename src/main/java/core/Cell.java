@@ -1,36 +1,69 @@
 package core;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.Objects;
 
 public class Cell extends JLabel implements Comparable<Cell>{
 	public final Integer id, type;
-	public final ImageIcon img;
-	private boolean isMine, isOpened;
+	public ImageIcon img;
+	private boolean isMine, isOpened, isMarked;
+	private int surroundingMines = 0;
 
 	public Cell(int id, int type){
 		super();
 		this.id = id;
 		this.type = type;
+		this.isMine = false;
 		this.isOpened = false;
-		this.img = Resources.getCellImage(type);
+		this.isMarked = false;
+		this.img = Resources.getCellImage(ImageTypes.TILE_HIDDEN, type);
 
 		setIcon(img);
+		setSize(img.getIconWidth(),img.getIconHeight());
 		setOpaque(false);
 		addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				openCell();
+			public void mousePressed(MouseEvent e) {
+				openCell(e);
 			}
 		});
 	}
 
-	private void openCell() {
-		System.out.print("clicked: ");
-		System.out.println(this);
+	public void updateIcon(){ //updates by surrounding cells
+		if(isMarked) { //if marked
+			this.img = Resources.getCellImage(ImageTypes.TILE_MARKED, type);
+		}else if(isMine && isOpened){
+			this.img = Resources.getCellImage(ImageTypes.TILE_MINE,type);
+		}else if(!isOpened){ //if not marked and not opened
+			this.img = Resources.getCellImage(ImageTypes.TILE_HIDDEN,type);
+		}else{ //if not marked and opened
+			this.img = Resources.getCellImage(surroundingMines,type);
+		}
+		super.setIcon(img);
+	}
+
+	public void updateIcon(ImageTypes imgType){ //updates by chose imgtype
+		this.img = Resources.getCellImage(imgType,type);
+		super.setIcon(img);
+	}
+
+	private void openCell(MouseEvent e) {
+
+		if(isOpened){
+			return;
+		}
+		if (SwingUtilities.isRightMouseButton(e)) {
+			this.isMarked = !this.isMarked;
+			updateIcon();
+		}else if (SwingUtilities.isLeftMouseButton(e)) {
+			if(isMine){
+				//Main.endGame(Main.MINE_CLICKED);
+				System.out.println("pulsaste una mina");
+			}
+			this.isOpened = true;
+			updateIcon();
+		}
 	}
 
 	public void setMine(){
@@ -57,6 +90,10 @@ public class Cell extends JLabel implements Comparable<Cell>{
 				", img=" + img +
 				", isMine=" + isMine +
 				'}';
+	}
+
+	public boolean isMine() {
+		return isMine;
 	}
 
 	@Override

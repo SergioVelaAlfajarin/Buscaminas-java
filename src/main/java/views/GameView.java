@@ -14,7 +14,6 @@ public class GameView{
 	private final Grid g;
 	private final JFrame frame = new JFrame("Buscaminas");
 	private final JPanel titlePanel, statusPanel, gamePanel, mainPanel;
-	private int gameStatus;
 
 	public GameView(Grid g){
 		this.g = g;
@@ -22,7 +21,6 @@ public class GameView{
 		this.titlePanel = new JPanel();
 		this.statusPanel = new JPanel();
 		this.gamePanel = new JPanel(new GridLayout(g.getRows(), g.getColumns(),0,0));
-		this.gameStatus = 2; //2=game quitted
 
 		buildGrid();
 		setPanels();
@@ -33,7 +31,7 @@ public class GameView{
 			public void windowClosed(WindowEvent e) {
 				hide();
 				frame.dispose();
-				Main.endGame(gameStatus);
+				Main.endGame(Main.GAME_QUIT);
 			}
 		});
 		frame.setResizable(false);
@@ -67,6 +65,11 @@ public class GameView{
 			gamePanel.add(c);
 			//System.out.println(c);
 		}
+	}
+
+	public void dispose(){
+		hide();
+		frame.dispose();
 	}
 
 	public void show(){

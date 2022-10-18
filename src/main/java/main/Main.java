@@ -5,14 +5,15 @@ import core.Grid;
 import views.GameView;
 import views.MainView;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import javax.swing.*;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.Arrays;
 
 public class Main {
+	public static final int GAME_QUIT = 1,
+			MINE_CLICKED = 2,
+			GAME_WON = 0,
+			ERROR = -1;
+
 	private static MainView mainView;
 	private static GameView gameView;
 
@@ -21,7 +22,7 @@ public class Main {
 			mainView = new MainView();
 			mainView.show();
 		});
-/*
+		/*
 		URL is = Main.class.getClassLoader().getResource("Tile1.png");
 		File f = new File(is.toURI());
 		System.out.println(f.getAbsolutePath());
@@ -39,6 +40,8 @@ public class Main {
 	}
 
 	public static void endGame(int status){ //0-won, 1-lost, 2-quit
+		JOptionPane.showMessageDialog(null,"Status: " + status);
+		gameView.hide();
 		mainView.show();
 		//0-display message and come back to dif selection
 		//1-same but with quit button

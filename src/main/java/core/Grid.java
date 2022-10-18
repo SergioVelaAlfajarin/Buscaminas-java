@@ -18,13 +18,14 @@ public class Grid {
 		Random rn = new Random();
 
 		for (int i = 0; i < dif.mines_count; i++) {
-			int random = rn.nextInt(cells.length);
-			while(isRepeated(random, randomPos)){
-				random = rn.nextInt(cells.length);
+			int randomNum = rn.nextInt(cells.length);
+			while(isRepeated(randomNum, randomPos)){
+				randomNum = rn.nextInt(cells.length);
 			}
-			randomPos.add(random);
-			cells[random].setMine();
+			randomPos.add(randomNum);
+			cells[randomNum].setMine();
 		}
+
 	}
 
 	private boolean isRepeated(int num, ArrayList<Integer> list) {
@@ -37,6 +38,7 @@ public class Grid {
 			Cell[] row = generateRow(i);
 			list.addAll(List.of(row));
 		}
+		Collections.sort(list);
 		return list.toArray(new Cell[]{});
 	}
 
@@ -45,13 +47,13 @@ public class Grid {
 		if(i % 2 == 0){
 			for (int j = 0; j < dif.cols; j++) {
 				int type = j % 2 == 0 ? 1 : 2;
-				int id = (j + 1) + (i * 8);
+				int id = (j + 1) + (i * dif.cols);
 				array[j] = new Cell(id, type);
 			}
 		}else{
 			for (int j = 0; j < dif.cols; j++) {
 				int type = j % 2 == 0 ? 2 : 1;
-				int id = (j + 1) + (i * 8);
+				int id = (j + 1) + (i * dif.cols);
 				array[j] = new Cell(id, type);
 			}
 		}
