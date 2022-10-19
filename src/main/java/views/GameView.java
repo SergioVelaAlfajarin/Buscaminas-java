@@ -60,10 +60,11 @@ public class GameView{
 	}
 
 	private void buildGrid() {
-		Cell[] cells = g.getCells();
-		for(Cell c: cells){
-			gamePanel.add(c);
-			//System.out.println(c);
+		Cell[][] cells = g.getCells();
+		for (Cell[] c1 : cells) {
+			for (Cell c2: c1) {
+				gamePanel.add(c2);
+			}
 		}
 	}
 

@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Grid {
 	public final Difficulties dif;
-	private final Cell[] cells;
+	private final Cell[][] cells;
 
 	public Grid(Difficulties difficulty){
 		this.dif = difficulty;
@@ -14,57 +14,37 @@ public class Grid {
 	}
 
 	private void generateMines() {
-		ArrayList<Integer> randomPos = new ArrayList<>();
+		ArrayList<Integer> randomPositions = new ArrayList<>();
 		Random rn = new Random();
 
-		for (int i = 0; i < dif.mines_count; i++) {
-			int randomNum = rn.nextInt(cells.length);
-			while(isRepeated(randomNum, randomPos)){
-				randomNum = rn.nextInt(cells.length);
-			}
-			randomPos.add(randomNum);
-			cells[randomNum].setMine();
+
+	}
+
+	private Cell[][] generateGameCells(){
+		Cell[][] tempCells = new Cell[dif.rows][dif.cols];
+		for (int currentRow = 0; currentRow < tempCells.length; currentRow++) {//recorre rows de 0 a dif.rows - 1 ambos inclusives
+			tempCells[currentRow] = generateRow(currentRow);
 		}
-
+		return tempCells;
 	}
 
-	private boolean isRepeated(int num, ArrayList<Integer> list) {
-		return list.stream().mapToInt(i -> i).anyMatch(i -> i == num);
-	}
-
-	private Cell[] generateGameCells() {
-		ArrayList<Cell> list = new ArrayList<>();
-		for (int i = 0; i < dif.rows; i++) {
-			Cell[] row = generateRow(i);
-			list.addAll(List.of(row));
+	private Cell[] generateRow(int currentRow) {
+		Cell[] tempCells = new Cell[dif.cols];
+		for (int currentCol = 0; currentCol < tempCells.length; currentCol++) {
+			Position pos = new Position(currentRow, currentCol);
+			Cell cell = new Cell(this, pos);
+			tempCells[currentCol] = cell;
 		}
-		Collections.sort(list);
-		return list.toArray(new Cell[]{});
+		return tempCells;
 	}
 
-	private Cell[] generateRow(int i) {
-		Cell[] array = new Cell[dif.cols];
-		if(i % 2 == 0){
-			for (int j = 0; j < dif.cols; j++) {
-				int type = j % 2 == 0 ? 1 : 2;
-				int id = (j + 1) + (i * dif.cols);
-				array[j] = new Cell(id, type);
-			}
-		}else{
-			for (int j = 0; j < dif.cols; j++) {
-				int type = j % 2 == 0 ? 2 : 1;
-				int id = (j + 1) + (i * dif.cols);
-				array[j] = new Cell(id, type);
-			}
-		}
-		return array;
-	}
+
 
 	public Difficulties getDif() {
 		return dif;
 	}
 
-	public Cell[] getCells() {
+	public Cell[][] getCells() {
 		return cells;
 	}
 
@@ -79,4 +59,5 @@ public class Grid {
 	public int getMinesCount(){
 		return dif.mines_count;
 	}
+
 }

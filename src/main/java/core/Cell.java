@@ -4,23 +4,26 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.util.Objects;
 
-public class Cell extends JLabel implements Comparable<Cell>{
-	public final Integer id, type;
+public class Cell extends JLabel{
+	public final int type;
+	public final Position position;
+	public final Grid grid;
 	public ImageIcon img;
 	private boolean isMine, isOpened, isMarked;
 	private int surroundingMines = 0;
 
-	public Cell(int id, int type){
+	public Cell(Grid g, Position p){
 		super();
-		this.id = id;
-		this.type = type;
+		this.position = p;
+		this.type = p.getType();
+		this.grid = g;
 		this.isMine = false;
 		this.isOpened = false;
 		this.isMarked = false;
 		this.img = Resources.getCellImage(ImageTypes.TILE_HIDDEN, type);
 
-		setIcon(img);
 		setSize(img.getIconWidth(),img.getIconHeight());
+		setIcon(img);
 		setOpaque(false);
 		addMouseListener(new MouseAdapter() {
 			@Override
@@ -43,13 +46,8 @@ public class Cell extends JLabel implements Comparable<Cell>{
 		super.setIcon(img);
 	}
 
-	public void updateIcon(ImageTypes imgType){ //updates by chose imgtype
-		this.img = Resources.getCellImage(imgType,type);
-		super.setIcon(img);
-	}
-
 	private void openCell(MouseEvent e) {
-
+		System.out.println(this);
 		if(isOpened){
 			return;
 		}
@@ -61,6 +59,7 @@ public class Cell extends JLabel implements Comparable<Cell>{
 				//Main.endGame(Main.MINE_CLICKED);
 				System.out.println("pulsaste una mina");
 			}
+			this.isMarked = false;
 			this.isOpened = true;
 			updateIcon();
 		}
@@ -74,30 +73,24 @@ public class Cell extends JLabel implements Comparable<Cell>{
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (!(o instanceof Cell cell)) return false;
-		return id.equals(cell.id);
+		return type == cell.type && position.equals(cell.position);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(type, position);
 	}
 
 	@Override
 	public String toString() {
 		return "Cell{" +
-				"id=" + id +
-				", type=" + type +
+				"type=" + type +
+				", position=" + position +
 				", img=" + img +
 				", isMine=" + isMine +
+				", isOpened=" + isOpened +
+				", isMarked=" + isMarked +
+				", surroundingMines=" + surroundingMines +
 				'}';
-	}
-
-	public boolean isMine() {
-		return isMine;
-	}
-
-	@Override
-	public int compareTo(Cell o) {
-		return id.compareTo(o.id);
 	}
 }

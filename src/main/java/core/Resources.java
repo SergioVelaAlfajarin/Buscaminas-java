@@ -42,7 +42,6 @@ public class Resources {
 	}
 
 	private static ImageIcon getResizedImage(File f){
-		System.out.println("AQUI-----------");
 		try{
 			BufferedImage originalImage = ImageIO.read(f);
 			BufferedImage resizedImage = new BufferedImage(IMG_WIDTH, IMG_HEIGHT, BufferedImage.TYPE_INT_RGB);
