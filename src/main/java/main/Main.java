@@ -17,7 +17,7 @@ public class Main {
 	private static MainView mainView;
 	private static GameView gameView;
 
-	public static void main(String[] args) throws URISyntaxException {
+	public static void main(String[] args) {
 		java.awt.EventQueue.invokeLater(() -> {
 			mainView = new MainView();
 			mainView.show();
