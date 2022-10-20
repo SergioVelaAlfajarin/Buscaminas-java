@@ -1,4 +1,4 @@
-package core;
+package core.data;
 
 public enum ImageTypes { //TODO muy provisional
 	TILE_HIDDEN ("TileHidden_%d.png"),

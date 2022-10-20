@@ -1,7 +1,6 @@
 package views;
 
-import core.Difficulties;
-import core.Grid;
+import core.data.Difficulties;
 import main.Main;
 
 import javax.swing.*;
@@ -25,14 +24,6 @@ public class MainView {
 		frame.setLocationRelativeTo(null);
 	}
 
-	public void show(){
-		frame.setVisible(true);
-	}
-
-	public void hide(){
-		frame.setVisible(false);
-	}
-
 	private void setContent() {
 		var layout = new GridLayout(Difficulties.getValuesCount(),1);
 		layout.setVgap(30);
@@ -49,6 +40,14 @@ public class MainView {
 					btn.addActionListener(this::onClick);
 					panel.add(btn);
 				});
+	}
+
+	public void show(){
+		frame.setVisible(true);
+	}
+
+	public void hide(){
+		frame.setVisible(false);
 	}
 
 	private void onClick(ActionEvent e) {

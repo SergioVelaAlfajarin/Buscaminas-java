@@ -1,4 +1,4 @@
-package core;
+package core.data;
 
 import main.Main;
 
@@ -10,12 +10,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class Resources {
+public abstract class Resources {
 	private static final String RSC_PATH = "src/main/resources/";
-	private static final int IMG_WIDTH = 31, IMG_HEIGHT = 31;
-
-	private static final HashMap<String, ImageIcon> //path, image
-		imagesCache = new HashMap<>();
+	private static final int IMG_WIDTH = 35, IMG_HEIGHT = 35;
+	private static final HashMap<String, ImageIcon> imagesCache = new HashMap<>();
 
 
 	public static ImageIcon getCellImage(ImageTypes img, int type) {
@@ -24,7 +22,7 @@ public class Resources {
 			throw new RuntimeException("Error getting image from rsc.");
 		}
 		ImageIcon image = imagesCache.get(path.getAbsolutePath());
-		return(image == null) ?
+		return (image == null) ?
 				getResizedImage(path) :
 				image;
 	}

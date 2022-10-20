@@ -1,14 +1,13 @@
 package views;
 
-import core.Cell;
-import core.Grid;
+import core.cells.Cell;
+import core.grid.Grid;
 import main.Main;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 
 public class GameView{
 	private final Grid g;
@@ -25,38 +24,30 @@ public class GameView{
 		buildGrid();
 		setPanels();
 
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosed(WindowEvent e) {
-				hide();
-				frame.dispose();
-				Main.endGame(Main.GAME_QUIT);
-			}
-		});
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //TODO
 		frame.setResizable(false);
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 	}
 
 	private void setPanels() {
-		titlePanel.setBackground(Color.BLUE);
+		//titlePanel.setBackground(Color.BLUE);
 		//titlePanel.setSize(50, 30);
-		titlePanel.add(new JLabel("Title panel"));
+		//titlePanel.add(new JLabel("Title panel"));
 
-		statusPanel.setBackground(Color.RED);
+		//statusPanel.setBackground(Color.RED);
 		//statusPanel.setSize(50, 30);
-		statusPanel.add(new JLabel("Score panel"));
+		//statusPanel.add(new JLabel("Score panel"));
 
 		//gamePanel.setBackground(Color.YELLOW);
 		//gamePanel.setSize(50, 30);
 		//gamePanel.add(new JLabel("Game Panel"));
 
-		mainPanel.add(titlePanel);
-		mainPanel.add(statusPanel);
-		mainPanel.add(gamePanel);
+		//mainPanel.add(titlePanel);
+		//mainPanel.add(statusPanel);
+		//mainPanel.add(gamePanel);
 
-		frame.add(mainPanel);
+		frame.add(gamePanel);
 	}
 
 	private void buildGrid() {

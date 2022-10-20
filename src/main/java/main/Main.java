@@ -1,12 +1,11 @@
 package main;
 
-import core.Difficulties;
-import core.Grid;
+import core.data.Difficulties;
+import core.grid.Grid;
 import views.GameView;
 import views.MainView;
 
 import javax.swing.*;
-import java.net.URISyntaxException;
 
 public class Main {
 	public static final int GAME_QUIT = 1,
@@ -41,7 +40,7 @@ public class Main {
 
 	public static void endGame(int status){ //0-won, 1-lost, 2-quit
 		JOptionPane.showMessageDialog(null,"Status: " + status);
-		gameView.hide();
+		gameView.dispose();
 		mainView.show();
 		//0-display message and come back to dif selection
 		//1-same but with quit button
