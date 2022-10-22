@@ -50,8 +50,7 @@ public abstract class Resources {
 			imagesCache.put(f.getAbsolutePath(),imageIcon);
 			return imageIcon;
 		}catch (IOException e){
-			e.printStackTrace();
-			Main.endGame(-1);
+			Main.forceExit();
 			return null;
 		}
 	}

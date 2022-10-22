@@ -13,6 +13,7 @@ public class GameView{
 	private final Grid g;
 	private final JFrame frame = new JFrame("Buscaminas");
 	private final JPanel titlePanel, statusPanel, gamePanel, mainPanel;
+	private boolean gameWon, gameLost;
 
 	public GameView(Grid g){
 		this.g = g;
@@ -24,30 +25,18 @@ public class GameView{
 		buildGrid();
 		setPanels();
 
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //TODO
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				if(!gameWon && !gameLost){
+					Main.endGame(Main.GAME_QUIT);
+				}
+			}
+		});
 		frame.setResizable(false);
 		frame.pack();
 		frame.setLocationRelativeTo(null);
-	}
-
-	private void setPanels() {
-		//titlePanel.setBackground(Color.BLUE);
-		//titlePanel.setSize(50, 30);
-		//titlePanel.add(new JLabel("Title panel"));
-
-		//statusPanel.setBackground(Color.RED);
-		//statusPanel.setSize(50, 30);
-		//statusPanel.add(new JLabel("Score panel"));
-
-		//gamePanel.setBackground(Color.YELLOW);
-		//gamePanel.setSize(50, 30);
-		//gamePanel.add(new JLabel("Game Panel"));
-
-		//mainPanel.add(titlePanel);
-		//mainPanel.add(statusPanel);
-		//mainPanel.add(gamePanel);
-
-		frame.add(gamePanel);
 	}
 
 	private void buildGrid() {
@@ -57,6 +46,30 @@ public class GameView{
 				gamePanel.add(c2);
 			}
 		}
+	}
+
+	private void setPanels() {
+		titlePanel.setBackground(Color.BLUE);
+		titlePanel.setSize(50, 30);
+		titlePanel.add(new JLabel("Title panel"));
+
+		statusPanel.setBackground(Color.RED);
+		statusPanel.setSize(50, 30);
+		statusPanel.add(new JLabel("Score panel"));
+
+		mainPanel.add(titlePanel);
+		mainPanel.add(statusPanel);
+		mainPanel.add(gamePanel);
+
+		frame.add(mainPanel);
+	}
+
+	public void setGameWon(boolean gameWon) {
+		this.gameWon = gameWon;
+	}
+
+	public void setGameLost(boolean gameLost) {
+		this.gameLost = gameLost;
 	}
 
 	public void dispose(){

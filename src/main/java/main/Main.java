@@ -10,8 +10,7 @@ import javax.swing.*;
 public class Main {
 	public static final int GAME_QUIT = 1,
 			MINE_CLICKED = 2,
-			GAME_WON = 0,
-			ERROR = -1;
+			GAME_WON = 0;
 
 	private static MainView mainView;
 	private static GameView gameView;
@@ -38,12 +37,20 @@ public class Main {
 		gameView.show();
 	}
 
-	public static void endGame(int status){ //0-won, 1-lost, 2-quit
-		JOptionPane.showMessageDialog(null,"Status: " + status);
+	public static void endGame(int gameStatus){ //0-won, 1-lost, 2-quit
+		if(gameStatus == Main.GAME_WON){
+			JOptionPane.showMessageDialog(null,"Has ganado");
+			gameView.setGameWon(true);
+		}else if (gameStatus == Main.MINE_CLICKED){
+			JOptionPane.showMessageDialog(null,"Has hecho click en una bomba");
+			gameView.setGameLost(true);
+		}
 		gameView.dispose();
 		mainView.show();
-		//0-display message and come back to dif selection
-		//1-same but with quit button
-		//exit quietly
+	}
+
+	public static void forceExit(){
+		JOptionPane.showMessageDialog(null,"Ha ocurrido un error");
+		System.exit(-1);
 	}
 }

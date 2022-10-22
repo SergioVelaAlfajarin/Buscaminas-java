@@ -4,6 +4,7 @@ import core.grid.Grid;
 import core.data.ImageTypes;
 import core.data.Resources;
 import main.Main;
+import views.GameView;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -52,15 +53,7 @@ public class Cell extends JLabel{
 		super.setIcon(img);
 	}
 
-	//TODO ONLY IN TESTING
-	public void openCell(){
-		this.isOpened = true;
-		this.isMarked = false;
-		updateIcon();
-	}
-
 	private void openCell(MouseEvent e) {
-		System.out.println(this);
 		if(isOpened){
 			return;
 		}

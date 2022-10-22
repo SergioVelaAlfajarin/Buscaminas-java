@@ -3,6 +3,7 @@ package core.grid;
 import core.data.Difficulties;
 import core.cells.Cell;
 import core.cells.Position;
+import views.GameView;
 
 import java.util.*;
 
@@ -17,7 +18,7 @@ public class Grid {
 		generateMines();
 		calculateSurroundingMines();
 	}
-	
+
 	private Cell[][] generateGameCells(){
 		Cell[][] tempCells = new Cell[dif.rows][dif.cols];
 		for (int currentRow = 0; currentRow < tempCells.length; currentRow++) {//recorre rows de 0 a dif.rows - 1 ambos inclusives
@@ -129,5 +130,4 @@ public class Grid {
 	public int getMinesCount(){
 		return dif.mines_count;
 	}
-
 }

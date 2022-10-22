@@ -42,6 +42,11 @@ public class MainView {
 				});
 	}
 
+	public void dispose(){
+		hide();
+		frame.dispose();
+	}
+
 	public void show(){
 		frame.setVisible(true);
 	}
