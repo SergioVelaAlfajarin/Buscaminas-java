@@ -19,7 +19,7 @@ public abstract class Resources {
 	public static ImageIcon getCellImage(ImageTypes img, int type) {
 		File path = new File(RSC_PATH + img.getFileName(type));
 		if(!path.exists() || path.isDirectory()){
-			throw new RuntimeException("Error getting image from rsc.");
+			Main.forceExit("No se han encontrado las imagenes requeridas.");
 		}
 		ImageIcon image = imagesCache.get(path.getAbsolutePath());
 		return (image == null) ?
@@ -31,7 +31,7 @@ public abstract class Resources {
 		ImageTypes imgType = ImageTypes.getBySurroundedMines(surrMines);
 		File path = new File(RSC_PATH + imgType.getFileName(type));
 		if(!path.exists() || path.isDirectory()){
-			throw new RuntimeException("Error getting image from rsc.");
+			Main.forceExit("No se han encontrado las imagenes requeridas.");
 		}
 		ImageIcon image = imagesCache.get(path.getAbsolutePath());
 		return(image == null) ?

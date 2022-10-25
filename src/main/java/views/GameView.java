@@ -12,18 +12,14 @@ import java.awt.event.WindowEvent;
 public class GameView{
 	private final Grid g;
 	private final JFrame frame = new JFrame("Buscaminas");
-	private final JPanel titlePanel, statusPanel, gamePanel, mainPanel;
+	private final JPanel gamePanel;
 	private boolean gameWon, gameLost;
 
 	public GameView(Grid g){
 		this.g = g;
-		this.mainPanel = new JPanel(); // ESTUDIAR LAYOUTS JAVA
-		this.titlePanel = new JPanel();
-		this.statusPanel = new JPanel();
 		this.gamePanel = new JPanel(new GridLayout(g.getRows(), g.getColumns(),0,0));
 
 		buildGrid();
-		setPanels();
 
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.addWindowListener(new WindowAdapter() {
@@ -46,22 +42,8 @@ public class GameView{
 				gamePanel.add(c2);
 			}
 		}
-	}
 
-	private void setPanels() {
-		titlePanel.setBackground(Color.BLUE);
-		titlePanel.setSize(50, 30);
-		titlePanel.add(new JLabel("Title panel"));
-
-		statusPanel.setBackground(Color.RED);
-		statusPanel.setSize(50, 30);
-		statusPanel.add(new JLabel("Score panel"));
-
-		mainPanel.add(titlePanel);
-		mainPanel.add(statusPanel);
-		mainPanel.add(gamePanel);
-
-		frame.add(mainPanel);
+		frame.add(gamePanel);
 	}
 
 	public void setGameWon(boolean gameWon) {

@@ -49,8 +49,12 @@ public class Main {
 		mainView.show();
 	}
 
-	public static void forceExit(){
-		JOptionPane.showMessageDialog(null,"Ha ocurrido un error");
+	public static void forceExit(String msg){
+		JOptionPane.showMessageDialog(null,msg);
 		System.exit(-1);
+	}
+
+	public static void forceExit(){
+		forceExit("Ha ocurrido un error");
 	}
 }

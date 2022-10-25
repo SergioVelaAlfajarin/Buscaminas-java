@@ -3,17 +3,21 @@ package core.grid;
 import core.data.Difficulties;
 import core.cells.Cell;
 import core.cells.Position;
-import views.GameView;
+import main.Main;
 
 import java.util.*;
 
 public class Grid {
 	private final Difficulties dif;
+	private final int CELLS_REQUIRED_TO_WIN;
+	private int cellsOpenedCount;
 	private final Cell[][] cells;
 
 	public Grid(Difficulties difficulty){
 		this.dif = difficulty;
 		this.cells = generateGameCells();
+		CELLS_REQUIRED_TO_WIN = dif.getCellCount() - dif.mines_count;
+		cellsOpenedCount = 0;
 
 		generateMines();
 		calculateSurroundingMines();
@@ -114,6 +118,13 @@ public class Grid {
 				.orElse(null);
 	}
 
+	public void increaseCellsOpened(){
+		cellsOpenedCount++;
+
+		if(cellsOpenedCount >= CELLS_REQUIRED_TO_WIN){
+			Main.endGame(Main.GAME_WON);
+		}
+	}
 
 	public Cell[][] getCells() {
 		return cells;
@@ -129,5 +140,15 @@ public class Grid {
 
 	public int getMinesCount(){
 		return dif.mines_count;
+	}
+
+	public void openAllMines() {
+		for (Cell[] c1 : cells) {
+			for (Cell c2 : c1) {
+				if (c2.isMine()) {
+					c2.openMine();
+				}
+			}
+		}
 	}
 }

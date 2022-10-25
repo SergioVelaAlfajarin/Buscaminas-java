@@ -4,7 +4,6 @@ import core.grid.Grid;
 import core.data.ImageTypes;
 import core.data.Resources;
 import main.Main;
-import views.GameView;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -62,6 +61,7 @@ public class Cell extends JLabel{
 			updateIcon();
 		}else if (SwingUtilities.isLeftMouseButton(e)) {
 			if(isMine){
+				gridParent.openAllMines();
 				Main.endGame(Main.MINE_CLICKED);
 			}
 			this.isMarked = false;
@@ -74,8 +74,16 @@ public class Cell extends JLabel{
 				}
 			}
 
+			gridParent.increaseCellsOpened();
 			updateIcon();
 		}
+	}
+
+	public void openMine() {
+		this.isMarked = false;
+		this.isOpened = true;
+
+		updateIcon();
 	}
 
 	public void setMine(){
