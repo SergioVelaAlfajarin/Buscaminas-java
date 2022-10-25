@@ -25,18 +25,20 @@ public class Grid {
 
 	private Cell[][] generateGameCells(){
 		Cell[][] tempCells = new Cell[dif.rows][dif.cols];
-		for (int currentRow = 0; currentRow < tempCells.length; currentRow++) {//recorre rows de 0 a dif.rows - 1 ambos inclusives
-			tempCells[currentRow] = generateRow(currentRow);
+		//crows = current rows
+		for (int crow = 0; crow < tempCells.length; crow++) {//recorre rows de 0 a dif.rows - 1 ambos inclusives
+			tempCells[crow] = generateRow(crow);
 		}
 		return tempCells;
 	}
 
-	private Cell[] generateRow(int currentRow) {
+	private Cell[] generateRow(int crow) {
 		Cell[] tempCells = new Cell[dif.cols];
-		for (int currentCol = 0; currentCol < tempCells.length; currentCol++) {
-			Position pos = new Position(currentRow, currentCol);
+		//ccol = current column
+		for (int ccol = 0; ccol < tempCells.length; ccol++) {
+			Position pos = new Position(crow, ccol);
 			Cell cell = new Cell(this, pos);
-			tempCells[currentCol] = cell;
+			tempCells[ccol] = cell;
 		}
 		return tempCells;
 	}
@@ -118,6 +120,9 @@ public class Grid {
 				.orElse(null);
 	}
 
+	/**
+	 * Increase the counter and checks if the user won.
+	 */
 	public void increaseCellsOpened(){
 		cellsOpenedCount++;
 

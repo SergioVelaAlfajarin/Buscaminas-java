@@ -8,6 +8,7 @@ import views.MainView;
 import javax.swing.*;
 
 public class Main {
+	//estados del juego
 	public static final int GAME_QUIT = 1,
 			MINE_CLICKED = 2,
 			GAME_WON = 0;
@@ -20,16 +21,12 @@ public class Main {
 			mainView = new MainView();
 			mainView.show();
 		});
-		/*
-		URL is = Main.class.getClassLoader().getResource("Tile1.png");
-		File f = new File(is.toURI());
-		System.out.println(f.getAbsolutePath());
-
-		Grid g = new Grid(Difficulties.EASY);
-		System.out.println(Arrays.toString(g.getCells()));
-		System.out.println(g.getDif());*/
 	}
 
+	/**
+	 * Creates a grid with the chosen difficulty.
+	 * @param dif difficulty chosen in the MainView.
+	 */
 	public static void startGame(Difficulties dif) {
 		mainView.hide();
 		Grid g = new Grid(dif);
@@ -37,7 +34,11 @@ public class Main {
 		gameView.show();
 	}
 
-	public static void endGame(int gameStatus){ //0-won, 1-lost, 2-quit
+	/**
+	 * End the game with the indicated status. 0-won, 1-lost, 2-quit.
+	 * @param gameStatus status depending how the gameview has to be closed.
+	 */
+	public static void endGame(int gameStatus){
 		if(gameStatus == Main.GAME_WON){
 			JOptionPane.showMessageDialog(null,"Has ganado");
 			gameView.setGameWon(true);
@@ -49,11 +50,18 @@ public class Main {
 		mainView.show();
 	}
 
+	/**
+	 * Forces exit if some error occurred.
+	 * @param msg msg giving feedback of the error.
+	 */
 	public static void forceExit(String msg){
 		JOptionPane.showMessageDialog(null,msg);
 		System.exit(-1);
 	}
 
+	/**
+	 * Forces exit if some error occurred and gives a default message.
+	 */
 	public static void forceExit(){
 		forceExit("Ha ocurrido un error");
 	}

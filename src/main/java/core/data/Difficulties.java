@@ -6,7 +6,7 @@ public enum Difficulties {
 	EASY(8,10,10),
 	MEDIUM(14,18,40),
 	HARD(20,24,99),
-	INSANE(26,30,160);
+	/*INSANE(26,30,160) ONLY IN TESTING. NOT A REAL DIFF */;
 
 	public final int rows, cols, mines_count;
 

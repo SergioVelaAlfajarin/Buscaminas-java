@@ -39,6 +39,9 @@ public class Cell extends JLabel{
 		});
 	}
 
+	/**
+	 * Updates the icon of the cell based on its properties
+	 */
 	public void updateIcon(){ //updates by surrounding cells
 		if(isMarked) { //if marked
 			this.img = Resources.getCellImage(ImageTypes.TILE_MARKED, type);
@@ -52,33 +55,41 @@ public class Cell extends JLabel{
 		super.setIcon(img);
 	}
 
+	/**
+	 *  Opens the cell if it is not already open.
+	 * @param e event indicating which button the user pressed.
+	 */
 	private void openCell(MouseEvent e) {
 		if(isOpened){
 			return;
 		}
-		if (SwingUtilities.isRightMouseButton(e)) {
+		if (SwingUtilities.isRightMouseButton(e)) { //click derecho marca la celda
 			this.isMarked = !this.isMarked;
 			updateIcon();
-		}else if (SwingUtilities.isLeftMouseButton(e)) {
-			if(isMine){
+		}else if (SwingUtilities.isLeftMouseButton(e)) { //click izquierdo la abre
+			if(isMine){ //si es una mina pierdes
 				gridParent.openAllMines();
 				Main.endGame(Main.MINE_CLICKED);
 			}
 			this.isMarked = false;
 			this.isOpened = true;
 
-			if(surroundingMines == 0){
+			if(surroundingMines == 0){ //si no es una mina y no tiene minas cerca, abre las de alrededor
 				var surroundingCells = gridParent.getSurroundingCells(this);
 				for (Cell c1 : surroundingCells) {
 					c1.openCell(e);
 				}
 			}
 
+			//incrementa el contador de celdas abiertas para saber cuando el usuario a ganado
 			gridParent.increaseCellsOpened();
 			updateIcon();
 		}
 	}
 
+	/**
+	 * Open the cell normally. used to reveal all the mines.
+	 */
 	public void openMine() {
 		this.isMarked = false;
 		this.isOpened = true;
@@ -86,10 +97,13 @@ public class Cell extends JLabel{
 		updateIcon();
 	}
 
+	/**
+	 * Transform the current cell in a mine cell.
+	 */
 	public void setMine(){
 		this.isMine = true;
 	}
-
+	
 	public void setSurroundingMines(int count){
 		this.surroundingMines = count;
 	}
